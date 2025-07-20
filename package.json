@@ -1,9 +1,10 @@
 {
-  "name": "my-cli",
+  "name": "@zentiencelabs/my-cli",
   "version": "1.0.0",
   "description": "A CLI with multiple modes including command, chat, agent, and search",
   "type": "module",
   "main": "dist/index.js",
+  
   "bin": {
     "my-cli": "./dist/bin.js"
   },
@@ -12,11 +13,19 @@
     "dev": "npx tsx --watch src/index.tsx",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "cli",
+    "terminal",
+    "chat",
+    "agent",
+    "command-line",
+    "ai"
+  ],
+  "author": "N Ashok kumar<ashok@zentience.co>",
+  "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.56.0",
     "@langchain/anthropic": "^0.3.24",
@@ -40,5 +49,13 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.16.2",
     "typescript": "^5.5.2"
+  },
+  "files": [
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
