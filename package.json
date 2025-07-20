@@ -7,6 +7,10 @@
   "bin": {
     "my-cli": "./dist/bin.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZentienceLabs/my-cli.git"
+  },
   "scripts": {
     "start": "npx tsx src/index.tsx",
     "dev": "npx tsx --watch src/index.tsx",
