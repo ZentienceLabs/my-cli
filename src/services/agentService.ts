@@ -25,15 +25,11 @@ export class AgentService {
    * Initialize the LangGraph agent with given settings
    */
   initialize(settings: SettingsConfig): boolean {
-    console.log('AgentService: Initializing with settings:', {
-      provider: settings.provider,
-      hasApiKey: !!settings.apiKey,
-      model: settings.model
-    });
+    
 
     // Check if we have valid settings
     if (!settings.provider || !settings.apiKey || !settings.model) {
-      console.log('AgentService: Missing required settings - clearing agent');
+      
       this.currentAgent = null;
       return false;
     }
@@ -46,7 +42,7 @@ export class AgentService {
     }
 
     try {
-      console.log('AgentService: Creating LangGraph agent with provider:', settings.provider, 'model:', settings.model);
+      
       
       // Create agent using the factory with the appropriate provider
       const agent = createLangGraphAgent(
@@ -55,10 +51,10 @@ export class AgentService {
         settings.model
       );
       
-      console.log('AgentService: Agent created, type:', typeof agent);
+      
 
       if (typeof agent === 'function') {
-        console.log('AgentService: Agent successfully initialized');
+        
         this.currentAgent = agent;
         return true;
       } else {
@@ -111,7 +107,7 @@ export class AgentService {
    * Clear the current agent
    */
   clear(): void {
-    console.log('AgentService: Clearing agent');
+    
     this.currentAgent = null;
   }
 }

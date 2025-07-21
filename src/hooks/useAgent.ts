@@ -28,7 +28,7 @@ export const useAgent = (initialSettings: SettingsConfig): UseAgentReturn => {
     const updatedSettings = loadSettings();
     const success = agentService.initialize(updatedSettings);
     setAgent(agentService.getAgent());
-    console.log('Agent reinitialized:', success);
+    
   };
 
   const processRequest = async (

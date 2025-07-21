@@ -32,7 +32,7 @@ export function createLangGraphAgent(provider: LLMProvider, apiKey: string, mode
   // Chat node - handles general conversation
   const chatNode = async (state: AgentStateType): Promise<Partial<AgentStateType>> => {
     try {
-      console.log('Chat node state:', JSON.stringify(state, null, 2));
+      
       
       // Build messages array
       const messages: BaseMessage[] = [
@@ -56,7 +56,7 @@ export function createLangGraphAgent(provider: LLMProvider, apiKey: string, mode
       if (state.input === null || state.input === undefined) {
         // Use a default message or get from history if available
         const defaultMessage = "Hello, how can I help you today?";
-        console.log('Input is null or undefined, using default message');
+        
         return {
           response: defaultMessage,
           messages: [...messages, new SystemMessage({ content: defaultMessage })]
@@ -65,7 +65,7 @@ export function createLangGraphAgent(provider: LLMProvider, apiKey: string, mode
       
       // Add current input - validate it's a string
       if (typeof state.input === 'string' && state.input.trim().length > 0) {
-        console.log('Adding HumanMessage with content:', state.input);
+        
         messages.push(new HumanMessage({ content: state.input }));
       } else {
         // Handle empty string or non-string input

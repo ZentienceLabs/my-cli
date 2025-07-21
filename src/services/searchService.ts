@@ -27,7 +27,7 @@ export class SearchService {
     if (searchTerm.trim() === '**') {
       // Get all command history directly
       results = cliDb.getCommandHistory(100);
-      console.log('SearchService: Getting all commands:', results);
+      
     } else if (searchTerm.trim() === '') {
       // For empty search, don't show any results
       results = [];

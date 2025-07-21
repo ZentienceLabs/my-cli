@@ -78,7 +78,7 @@ const Settings = ({ onExit, onSave, settings: initialSettings }: SettingsProps) 
       return;
     }
 
-    console.log('Key pressed:', key);
+    
 
     // Switch tabs with Ctrl+Up/Down
     if (key.ctrl && key.upArrow) {

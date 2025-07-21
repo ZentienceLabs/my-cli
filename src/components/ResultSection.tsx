@@ -66,7 +66,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({
       borderStyle="round"
       borderColor="gray"
       flexDirection="column"
-      height={8}
+      height={12}
       marginTop={0}
       flexShrink={0}
     >

@@ -14,7 +14,7 @@
   "scripts": {
     "start": "npx tsx src/index.tsx",
     "dev": "npx tsx --watch src/index.tsx",
-    "build": "tsc",
+    "build": "tsc && node scripts/fix-imports.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepublishOnly": "npm run build",

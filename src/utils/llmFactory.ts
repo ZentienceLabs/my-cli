@@ -17,7 +17,7 @@ export class LLMFactory {
    * @returns A BaseChatModel instance
    */
   static createLLM(provider: LLMProvider, apiKey: string, model: string): BaseChatModel {
-    console.log(`Creating LLM for provider: ${provider}, model: ${model}`);
+    
     
     switch (provider) {
       case 'Anthropic':
