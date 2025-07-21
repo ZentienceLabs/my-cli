@@ -5,7 +5,7 @@ import { Mode, SettingsConfig } from '../types/index';
 import { loadSettings } from '../utils/config';
 import { cliDb } from '../utils/storage';
 import Settings from './Settings';
-import CLISession from './CLISession';
+import CLISession from './CLISession_1';
 import ChatSession from './ChatSession';
 import AgentSession from './AgentSession';
 import StatusBar from './StatusBar';
