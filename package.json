@@ -1,6 +1,6 @@
 {
   "name": "@zentiencelabs/my-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A CLI with multiple modes including command, chat, agent, and search",
   "type": "module",
   "main": "dist/index.js",
