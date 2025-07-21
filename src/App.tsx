@@ -1,6 +1,7 @@
 import React from 'react';
-import CLI from './components/CLI_1';
+
 import { loadSettings } from './utils/config';
+import CLI from './components/Cli';
 
 const App = () => {
   const settings = loadSettings();
