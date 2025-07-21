@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Box, Text, useInput } from 'ink';
 import SelectInput from 'ink-select-input';
 import TextInput from 'ink-text-input';
-import { SettingsConfig } from '../types/index.js';
-import { modelsByProvider } from '../utils/models.js';
-import { saveSettings } from '../utils/config.js';
-import { cliDb } from '../utils/storage.js';
-import Field from './Field.js';
+import { SettingsConfig } from '../types/index';
+import { modelsByProvider } from '../utils/models';
+import { saveSettings } from '../utils/config';
+import { cliDb } from '../utils/storage';
+import Field from './Field';
 
 interface SettingsProps {
   onExit: () => void;
@@ -78,13 +78,17 @@ const Settings = ({ onExit, onSave, settings: initialSettings }: SettingsProps) 
       return;
     }
 
+    console.log('Key pressed:', key);
+
     // Switch tabs with Ctrl+Up/Down
     if (key.ctrl && key.upArrow) {
       setActiveTab('general');
+      // Prevent event propagation
       return;
     }
     if (key.ctrl && key.downArrow) {
       setActiveTab('aliases');
+      // Prevent event propagation
       return;
     }
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import Cli from './components/Cli.js';
-import { loadSettings } from './utils/config.js';
+import CLI from './components/CLI';
+import { loadSettings } from './utils/config';
 
 const App = () => {
   const settings = loadSettings();
-  return <Cli initialSettings={settings} />;
+  return <CLI initialSettings={settings} />;
 };
 
 export default App;

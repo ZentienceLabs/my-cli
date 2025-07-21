@@ -1,29 +1,29 @@
 import { spawn } from 'child_process';
-import { cliDb } from '../utils/storage.js';
+import { cliDb } from '../utils/storage';
 
-export interface CliHistoryItem {
+export interface CLIHistoryItem {
   type: 'command' | 'output';
   content: string;
   timestamp: Date;
 }
 
-export class CliExecutor {
-  private static instance: CliExecutor;
-  private history: CliHistoryItem[] = [];
+export class CLIExecutor {
+  private static instance: CLIExecutor;
+  private history: CLIHistoryItem[] = [];
   private currentWorkingDir: string = process.cwd();
   private isProcessing: boolean = false;
-  private subscribers: Array<(history: CliHistoryItem[], isProcessing: boolean) => void> = [];
+  private subscribers: Array<(history: CLIHistoryItem[], isProcessing: boolean) => void> = [];
 
   private constructor() {}
 
-  public static getInstance(): CliExecutor {
-    if (!CliExecutor.instance) {
-      CliExecutor.instance = new CliExecutor();
+  public static getInstance(): CLIExecutor {
+    if (!CLIExecutor.instance) {
+      CLIExecutor.instance = new CLIExecutor();
     }
-    return CliExecutor.instance;
+    return CLIExecutor.instance;
   }
 
-  public subscribe(callback: (history: CliHistoryItem[], isProcessing: boolean) => void) {
+  public subscribe(callback: (history: CLIHistoryItem[], isProcessing: boolean) => void) {
     this.subscribers.push(callback);
     // Immediately call with current state
     callback(this.history, this.isProcessing);
@@ -37,7 +37,7 @@ export class CliExecutor {
     this.subscribers.forEach(callback => callback(this.history, this.isProcessing));
   }
 
-  public getHistory(): CliHistoryItem[] {
+  public getHistory(): CLIHistoryItem[] {
     return [...this.history];
   }
 
@@ -53,7 +53,7 @@ export class CliExecutor {
     return this.isProcessing;
   }
 
-  public addToHistory(item: CliHistoryItem) {
+  public addToHistory(item: CLIHistoryItem) {
     this.history.push(item);
     this.notifySubscribers();
   }

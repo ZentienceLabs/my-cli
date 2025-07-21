@@ -1,5 +1,5 @@
-import { SettingsConfig } from '../types/index.js';
-import { loadSettings as loadStorageSettings, saveSettings as saveStorageSettings } from './storage.js';
+import { SettingsConfig } from '../types/index';
+import { loadSettings as loadStorageSettings, saveSettings as saveStorageSettings } from './storage';
 
 /**
  * Load settings from the user's home directory

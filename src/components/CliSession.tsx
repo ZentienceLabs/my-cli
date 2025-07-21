@@ -1,19 +1,19 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 
-interface CliHistoryItem {
+interface CLIHistoryItem {
   type: 'command' | 'output';
   content: string;
   timestamp: Date;
 }
 
-interface CliSessionProps {
-  history: CliHistoryItem[];
+interface CLISessionProps {
+  history: CLIHistoryItem[];
   currentWorkingDir: string;
 }
 
-const CliSession = ({ history, currentWorkingDir }: CliSessionProps) => {
-  const formatHistoryLine = (item: CliHistoryItem) => {
+const CLISession = ({ history, currentWorkingDir }: CLISessionProps) => {
+  const formatHistoryLine = (item: CLIHistoryItem) => {
     if (item.type === 'command') {
       return `> ${item.content}`;
     }
@@ -41,5 +41,5 @@ const CliSession = ({ history, currentWorkingDir }: CliSessionProps) => {
   );
 };
 
-export default CliSession;
-export type { CliHistoryItem };
+export default CLISession;
+export type { CLIHistoryItem };
