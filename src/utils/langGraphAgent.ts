@@ -1,7 +1,8 @@
-import { ChatAnthropic } from "@langchain/anthropic";
-import { HumanMessage, SystemMessage, BaseMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage, BaseMessage, AIMessage } from "@langchain/core/messages";
 import { StateGraph, END, START } from "@langchain/langgraph";
 import { Annotation } from "@langchain/langgraph";
+import { BaseChatModel } from "@langchain/core/language_models/chat_models";
+import { LLMFactory, LLMProvider } from "./llmFactory";
 
 // Define the state interface using LangGraph's Annotation system
 const AgentState = Annotation.Root({
@@ -18,18 +19,15 @@ const AgentState = Annotation.Root({
 type AgentStateType = typeof AgentState.State;
 
 /**
- * Create a LangGraph agent using Anthropic
- * @param apiKey - The Anthropic API key
- * @param model - The model to use (e.g., "claude-3-opus-20240229")
+ * Create a LangGraph agent using the specified LLM provider
+ * @param provider - The LLM provider (Anthropic, OpenAI, Google)
+ * @param apiKey - The API key for the provider
+ * @param model - The model to use
  * @returns A function that takes a user input, mode, and history and returns an agent response
  */
-export function createLangGraphAgent(apiKey: string, model: string) {
-  // Initialize the LLM
-  const llm = new ChatAnthropic({
-    apiKey,
-    model,
-    temperature: 0.7,
-  });
+export function createLangGraphAgent(provider: LLMProvider, apiKey: string, model: string) {
+  // Initialize the LLM using the factory
+  const llm = LLMFactory.createLLM(provider, apiKey, model);
 
   // Chat node - handles general conversation
   const chatNode = async (state: AgentStateType): Promise<Partial<AgentStateType>> => {
@@ -47,7 +45,9 @@ export function createLangGraphAgent(apiKey: string, model: string) {
           if (item && item.role === 'user' && item.content && typeof item.content === 'string') {
             messages.push(new HumanMessage({ content: item.content }));
           } else if (item && item.role === 'assistant' && item.content && typeof item.content === 'string') {
-            messages.push(new SystemMessage({ content: item.content }));
+            // Use AIMessage for assistant responses, not SystemMessage
+            // This was causing the "System message should be the first one" error
+            messages.push(new AIMessage({ content: item.content }));
           }
         }
       }

@@ -1,5 +1,6 @@
 import { createLangGraphAgent } from '../utils/langGraphAgent';
 import { SettingsConfig } from '../types/index';
+import { LLMFactory, LLMProvider } from '../utils/llmFactory';
 
 export type AgentFunction = (
   userInput: string,
@@ -30,28 +31,45 @@ export class AgentService {
       model: settings.model
     });
 
-    if (settings.provider === 'Anthropic' && settings.apiKey) {
-      try {
-        console.log('AgentService: Creating LangGraph agent with model:', settings.model);
-        const agent = createLangGraphAgent(settings.apiKey, settings.model);
-        console.log('AgentService: Agent created, type:', typeof agent);
+    // Check if we have valid settings
+    if (!settings.provider || !settings.apiKey || !settings.model) {
+      console.log('AgentService: Missing required settings - clearing agent');
+      this.currentAgent = null;
+      return false;
+    }
 
-        if (typeof agent === 'function') {
-          console.log('AgentService: Agent successfully initialized');
-          this.currentAgent = agent;
-          return true;
-        } else {
-          console.error('AgentService: Agent is not a function:', agent);
-          this.currentAgent = null;
-        }
-      } catch (error) {
-        console.error('AgentService: Error initializing agent:', error);
+    // Validate provider and model combination
+    if (!LLMFactory.isValidProviderModel(settings.provider, settings.model)) {
+      console.error('AgentService: Invalid provider/model combination:', settings.provider, settings.model);
+      this.currentAgent = null;
+      return false;
+    }
+
+    try {
+      console.log('AgentService: Creating LangGraph agent with provider:', settings.provider, 'model:', settings.model);
+      
+      // Create agent using the factory with the appropriate provider
+      const agent = createLangGraphAgent(
+        settings.provider as LLMProvider,
+        settings.apiKey,
+        settings.model
+      );
+      
+      console.log('AgentService: Agent created, type:', typeof agent);
+
+      if (typeof agent === 'function') {
+        console.log('AgentService: Agent successfully initialized');
+        this.currentAgent = agent;
+        return true;
+      } else {
+        console.error('AgentService: Agent is not a function:', agent);
         this.currentAgent = null;
       }
-    } else {
-      console.log('AgentService: Invalid settings - clearing agent');
+    } catch (error) {
+      console.error('AgentService: Error initializing agent:', error);
       this.currentAgent = null;
     }
+    
     return false;
   }
 
